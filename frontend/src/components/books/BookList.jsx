@@ -1,6 +1,7 @@
 import React from 'react';
 import BookCard from './BookCard';
 import { BookOpen, Plus } from 'lucide-react';
+import Button from '../common/Button';
 
 const BookList = ({ books, onEdit, onDelete, onLogSession, onAdd }) => {
   if (books.length === 0) {
@@ -15,13 +16,13 @@ const BookList = ({ books, onEdit, onDelete, onLogSession, onAdd }) => {
         <p className="text-gray-600 mb-6">
           Start your reading journey by adding your first book!
         </p>
-        <button
+        <Button
           onClick={onAdd}
-          className="inline-flex items-center justify-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors font-medium"
+          icon={Plus}
+          variant="primary"
         >
-          <Plus className="w-4 h-4 mr-2" />
           Add Book
-        </button>
+        </Button>
       </div>
     );
   }

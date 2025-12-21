@@ -139,13 +139,15 @@ const Dashboard = () => {
       <section>
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-2xl font-bold">Your Books</h2>
-          <Button
-            onClick={() => setShowAddBook(true)}
-            icon={Plus}
-            variant="primary"
-          >
-            Add Book
-          </Button>
+          {books.length > 0 && (
+            <Button
+              onClick={() => setShowAddBook(true)}
+              icon={Plus}
+              variant="primary"
+            >
+              Add Book
+            </Button>
+          )}
         </div>
 
         <BookList
