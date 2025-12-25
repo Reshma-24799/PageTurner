@@ -1,5 +1,6 @@
 # PageTurner
 A full-stack web application to track your reading progress, log reading sessions, and build consistent reading habits with detailed statistics and goal tracking.
+Visit the app here: https://page-turner-lake.vercel.app/
 📚 Features
 
 User Authentication: Secure registration and login system with JWT tokens
