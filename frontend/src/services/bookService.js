@@ -2,9 +2,9 @@ import api from './api';
 
 const bookService = {
     // Get all books
-    getBooks: async () => {
-        const response = await api.get('/books');
-        return response.data.data;
+    getBooks: async (params) => {
+        const response = await api.get('/books', { params });
+        return response.data;
     },
 
     // Get single book

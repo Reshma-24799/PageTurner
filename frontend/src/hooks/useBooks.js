@@ -6,21 +6,48 @@ export const useBooks = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [pagination, setPagination] = useState({
+    page: 1,
+    limit: 10,
+    hasMore: true,
+    total: 0
+  });
 
   useEffect(() => {
     fetchBooks();
   }, []);
 
-  const fetchBooks = async () => {
+  const fetchBooks = async (page = 1) => {
     try {
-      setLoading(true);
-      const data = await bookService.getBooks();
-      setBooks(data);
+      if (page === 1) setLoading(true);
+
+      const response = await bookService.getBooks({ page, limit: pagination.limit });
+      const { data, pagination: paginationData } = response;
+
+      if (page === 1) {
+        setBooks(data);
+      } else {
+        setBooks(prev => [...prev, ...data]);
+      }
+
+      setPagination(prev => ({
+        ...prev,
+        page,
+        total: paginationData.total,
+        hasMore: page < paginationData.pages
+      }));
+
       setError(null);
     } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const loadMore = () => {
+    if (!loading && pagination.hasMore) {
+      fetchBooks(pagination.page + 1);
     }
   };
 
@@ -60,9 +87,11 @@ export const useBooks = () => {
     books,
     loading,
     error,
-    fetchBooks,
+    fetchBooks: () => fetchBooks(1),
     addBook,
     updateBook,
     deleteBook,
+    pagination,
+    loadMore,
   };
 };

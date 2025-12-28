@@ -48,7 +48,7 @@ const SessionList = () => {
                     Recent Reading Activity
                 </h3>
             </div>
-            <div className="divide-y divide-gray-100">
+            <div className="divide-y divide-gray-100 max-h-96 overflow-y-auto">
                 {sessions.map((session) => (
                     <div key={session._id} className="p-4 hover:bg-gray-50 transition-colors">
                         <div className="flex items-start justify-between">

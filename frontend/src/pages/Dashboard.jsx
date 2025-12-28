@@ -18,7 +18,7 @@ import sessionService from '../services/sessionService';
 
 const Dashboard = () => {
   const { user, updateProfile } = useAuth();
-  const { books, loading, error, fetchBooks, addBook, updateBook, deleteBook } = useBooks();
+  const { books, loading, error, fetchBooks, addBook, updateBook, deleteBook, pagination, loadMore } = useBooks();
 
   const [showAddBook, setShowAddBook] = useState(false);
   const [showEditBook, setShowEditBook] = useState(false);
@@ -157,6 +157,18 @@ const Dashboard = () => {
           onLogSession={handleLogSessionClick}
           onAdd={() => setShowAddBook(true)}
         />
+
+        {pagination?.hasMore && (
+          <div className="mt-8 flex justify-center">
+            <Button
+              onClick={loadMore}
+              variant="secondary"
+              disabled={loading}
+            >
+              {loading ? 'Loading...' : 'Load More'}
+            </Button>
+          </div>
+        )}
       </section>
 
       {/* Add Book Modal */}

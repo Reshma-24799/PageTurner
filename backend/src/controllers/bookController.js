@@ -4,10 +4,26 @@ import Book from '../models/Book.js';
 // @access  Private
 export const getBooks = async (req, res, next) => {
   try {
-    const books = await Book.find({ user: req.user.id }).sort('-createdAt');
+    const page = parseInt(req.query.page, 10) || 1;
+    const limit = parseInt(req.query.limit, 10) || 10;
+    const startIndex = (page - 1) * limit;
+
+    const total = await Book.countDocuments({ user: req.user.id });
+
+    const books = await Book.find({ user: req.user.id })
+      .sort('-createdAt')
+      .skip(startIndex)
+      .limit(limit);
+
     res.status(200).json({
       success: true,
       count: books.length,
+      pagination: {
+        total,
+        page,
+        limit,
+        pages: Math.ceil(total / limit)
+      },
       data: books
     });
   } catch (error) {
