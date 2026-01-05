@@ -34,7 +34,9 @@ export const register = async (req, res, next) => {
       user: {
         id: user._id,
         name: user.name,
-        email: user.email
+        email: user.email,
+        booksGoal: user.booksGoal,
+        pagesGoal: user.pagesGoal
       }
     });
   } catch (error) {
@@ -72,7 +74,9 @@ export const login = async (req, res, next) => {
       user: {
         id: user._id,
         name: user.name,
-        email: user.email
+        email: user.email,
+        booksGoal: user.booksGoal,
+        pagesGoal: user.pagesGoal
       }
     });
   } catch (error) {
