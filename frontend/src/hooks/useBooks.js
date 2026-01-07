@@ -10,18 +10,20 @@ export const useBooks = () => {
     page: 1,
     limit: 10,
     hasMore: true,
+    hasMore: true,
     total: 0
   });
+  const [activeSearch, setActiveSearch] = useState('');
 
   useEffect(() => {
     fetchBooks();
   }, []);
 
-  const fetchBooks = async (page = 1) => {
+  const fetchBooks = async (page = 1, search = activeSearch) => {
     try {
       if (page === 1) setLoading(true);
 
-      const response = await bookService.getBooks({ page, limit: pagination.limit });
+      const response = await bookService.getBooks({ page, limit: pagination.limit, search });
       const { data, pagination: paginationData } = response;
 
       if (page === 1) {
@@ -37,6 +39,8 @@ export const useBooks = () => {
         hasMore: page < paginationData.pages
       }));
 
+      if (page === 1) setActiveSearch(search);
+
       setError(null);
     } catch (err) {
       setError(err.message);
@@ -47,8 +51,12 @@ export const useBooks = () => {
 
   const loadMore = () => {
     if (!loading && pagination.hasMore) {
-      fetchBooks(pagination.page + 1);
+      fetchBooks(pagination.page + 1, activeSearch);
     }
+  };
+
+  const searchBooks = (query) => {
+    fetchBooks(1, query);
   };
 
   const addBook = async (bookData) => {
@@ -93,5 +101,7 @@ export const useBooks = () => {
     deleteBook,
     pagination,
     loadMore,
+    searchBooks,
+    activeSearch,
   };
 };

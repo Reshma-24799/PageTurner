@@ -8,9 +8,28 @@ export const getBooks = async (req, res, next) => {
     const limit = parseInt(req.query.limit, 10) || 10;
     const startIndex = (page - 1) * limit;
 
-    const total = await Book.countDocuments({ user: req.user.id });
+    // Build query
+    const query = { user: req.user.id };
 
-    const books = await Book.find({ user: req.user.id })
+    if (req.query.search) {
+      const searchStr = req.query.search;
+      const terms = searchStr.trim().split(/[\s\W]+/);
+      const validTerms = terms.filter(t => t.length > 0);
+
+      const pattern = validTerms
+        .map(term => term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+        .join('[\\s\\W]*');
+
+      const searchRegex = new RegExp(pattern, 'i');
+      query.$or = [
+        { title: searchRegex },
+        { author: searchRegex }
+      ];
+    }
+
+    const total = await Book.countDocuments(query);
+
+    const books = await Book.find(query)
       .sort('-createdAt')
       .skip(startIndex)
       .limit(limit);
