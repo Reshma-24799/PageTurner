@@ -50,7 +50,7 @@ const MonthlyGoals = ({ booksGoal = 3, pagesGoal = 500, onUpdate }) => {
 
     if (loading) {
         return (
-            <div className="bg-linear-to-br from-purple-500 to-indigo-600 text-white rounded-xl p-6 shadow-lg animate-pulse">
+            <div className="bg-linear-to-br from-teal-400 to-teal-600 text-white rounded-xl p-6 shadow-lg animate-pulse">
                 <div className="h-6 bg-white/20 rounded w-48 mb-4"></div>
                 <div className="space-y-4">
                     <div className="h-16 bg-white/20 rounded"></div>
@@ -61,7 +61,7 @@ const MonthlyGoals = ({ booksGoal = 3, pagesGoal = 500, onUpdate }) => {
     }
 
     return (
-        <div className="bg-linear-to-br from-purple-500 to-indigo-600 text-white rounded-xl p-6 shadow-lg">
+        <div className="bg-linear-to-br from-teal-400 to-teal-600 text-white rounded-xl p-6 shadow-lg">
             <div className="flex items-center justify-between mb-4">
                 <h3 className="text-xl font-bold flex items-center gap-2">
                     <Target className="w-6 h-6" />

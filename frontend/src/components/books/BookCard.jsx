@@ -5,7 +5,7 @@ import { format } from 'date-fns';
 const BookCard = ({ book, onEdit, onDelete, onLogSession }) => {
   const progress = Math.round((book.currentPage / book.totalPages) * 100);
   const pagesLeft = book.totalPages - book.currentPage;
-  
+
   // Progress bar color based on percentage
   let progressColor = 'from-red-400 to-green-600';
   if (progress >= 75) progressColor = 'from-green-400 to-green-600';
@@ -19,14 +19,14 @@ const BookCard = ({ book, onEdit, onDelete, onLogSession }) => {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
+    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-all duration-200">
       <div className="flex gap-4">
         {/* Book Cover */}
         <div className="shrink-0">
-          <div className="w-20 h-28 bg-gray-200 rounded-lg flex items-center justify-center overflow-hidden">
+          <div className="w-20 h-28 bg-gray-200 dark:bg-gray-700 rounded-lg flex items-center justify-center overflow-hidden transition-colors duration-200">
             {book.coverUrl ? (
-              <img 
-                src={book.coverUrl} 
+              <img
+                src={book.coverUrl}
                 alt={book.title}
                 className="w-full h-full object-cover"
                 onError={(e) => {
@@ -36,7 +36,7 @@ const BookCard = ({ book, onEdit, onDelete, onLogSession }) => {
                 }}
               />
             ) : (
-              <BookOpen className="w-8 h-8 text-gray-400" />
+              <BookOpen className="w-8 h-8 text-gray-400 dark:text-gray-500" />
             )}
           </div>
         </div>
@@ -45,27 +45,27 @@ const BookCard = ({ book, onEdit, onDelete, onLogSession }) => {
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-2 mb-2">
             <div className="flex-1 min-w-0">
-              <h3 className="font-bold text-lg text-gray-900 truncate">
+              <h3 className="font-bold text-lg text-gray-900 dark:text-white truncate transition-colors duration-200">
                 {book.title}
               </h3>
-              <p className="text-sm text-gray-600 truncate">by {book.author}</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400 truncate transition-colors duration-200">by {book.author}</p>
             </div>
-            
+
             {/* Action Buttons */}
             <div className="flex items-center gap-1 shrink-0">
               <button
                 onClick={() => onEdit(book)}
-                className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors"
+                className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
                 title="Edit book"
               >
-                <Edit2 className="w-4 h-4 text-gray-600" />
+                <Edit2 className="w-4 h-4 text-gray-600 dark:text-gray-400" />
               </button>
               <button
                 onClick={() => onDelete(book._id)}
-                className="p-1.5 hover:bg-red-50 rounded-lg transition-colors"
+                className="p-1.5 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
                 title="Delete book"
               >
-                <Trash2 className="w-4 h-4 text-red-600" />
+                <Trash2 className="w-4 h-4 text-red-600 dark:text-red-400" />
               </button>
             </div>
           </div>
@@ -76,11 +76,10 @@ const BookCard = ({ book, onEdit, onDelete, onLogSession }) => {
               {[...Array(5)].map((_, i) => (
                 <Star
                   key={i}
-                  className={`w-4 h-4 ${
-                    i < book.rating
+                  className={`w-4 h-4 ${i < book.rating
                       ? 'fill-yellow-400 text-yellow-400'
-                      : 'text-gray-300'
-                  }`}
+                      : 'text-gray-300 dark:text-gray-600'
+                    }`}
                 />
               ))}
             </div>
@@ -88,15 +87,15 @@ const BookCard = ({ book, onEdit, onDelete, onLogSession }) => {
 
           {/* Progress Bar */}
           <div className="mb-3">
-            <div className="h-2 bg-gray-200 rounded-full overflow-hidden mb-2">
+            <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden mb-2 transition-colors duration-200">
               <div
                 className={`h-full bg-linear-to-r ${progressColor} transition-all duration-500`}
                 style={{ width: `${progress}%` }}
               />
             </div>
             <div className="flex justify-between text-sm">
-              <span className="font-medium text-primary-600">{progress}%</span>
-              <span className="text-gray-600">
+              <span className="font-medium text-primary-600 dark:text-primary-400">{progress}%</span>
+              <span className="text-gray-600 dark:text-gray-400 transition-colors duration-200">
                 {book.currentPage} / {book.totalPages} pages
               </span>
             </div>
@@ -105,22 +104,21 @@ const BookCard = ({ book, onEdit, onDelete, onLogSession }) => {
           {/* Status and Metadata */}
           <div className="flex flex-wrap items-center gap-2 mb-3">
             <span
-              className={`px-3 py-1 rounded-full text-xs font-medium ${
-                statusColors[book.status]
-              }`}
+              className={`px-3 py-1 rounded-full text-xs font-medium ${statusColors[book.status]
+                }`}
             >
               {book.status}
             </span>
-            
+
             {book.streakDays > 0 && (
-              <span className="flex items-center gap-1 text-xs font-medium text-green-600">
+              <span className="flex items-center gap-1 text-xs font-medium text-green-600 dark:text-green-400 transition-colors duration-200">
                 <Flame className="w-4 h-4" />
                 {book.streakDays}-day streak
               </span>
             )}
-            
+
             {book.startDate && (
-              <span className="flex items-center gap-1 text-xs text-gray-500">
+              <span className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400 transition-colors duration-200">
                 <Calendar className="w-3 h-3" />
                 Started: {format(new Date(book.startDate), 'MMM dd, yyyy')}
               </span>
@@ -131,14 +129,14 @@ const BookCard = ({ book, onEdit, onDelete, onLogSession }) => {
           {book.status !== 'Completed' && (
             <button
               onClick={() => onLogSession(book)}
-              className="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors text-sm font-medium"
+              className="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 dark:hover:bg-green-500 transition-colors text-sm font-medium"
             >
               Log Session
             </button>
           )}
-          
+
           {book.status === 'Completed' && book.completedDate && (
-            <p className="text-xs text-gray-500 text-center py-2">
+            <p className="text-xs text-gray-500 dark:text-gray-400 text-center py-2 transition-colors duration-200">
               ✓ Completed on {format(new Date(book.completedDate), 'MMM dd, yyyy')}
             </p>
           )}

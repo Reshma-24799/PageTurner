@@ -8,13 +8,13 @@ const BookList = ({ books, onEdit, onDelete, onLogSession, onAdd, isSearching })
     if (isSearching) {
       return (
         <div className="text-center py-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-4">
-            <BookOpen className="w-8 h-8 text-gray-400" />
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full mb-4 transition-colors duration-200">
+            <BookOpen className="w-8 h-8 text-gray-400 dark:text-gray-500" />
           </div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2 transition-colors duration-200">
             No books found
           </h3>
-          <p className="text-gray-600 mb-6">
+          <p className="text-gray-600 dark:text-gray-400 mb-6 transition-colors duration-200">
             Try adjusting your search terms or filters.
           </p>
         </div>
@@ -23,13 +23,13 @@ const BookList = ({ books, onEdit, onDelete, onLogSession, onAdd, isSearching })
 
     return (
       <div className="text-center py-12">
-        <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-4">
-          <BookOpen className="w-8 h-8 text-gray-400" />
+        <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full mb-4 transition-colors duration-200">
+          <BookOpen className="w-8 h-8 text-gray-400 dark:text-gray-500" />
         </div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-2">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2 transition-colors duration-200">
           No books yet
         </h3>
-        <p className="text-gray-600 mb-6">
+        <p className="text-gray-600 dark:text-gray-400 mb-6 transition-colors duration-200">
           Start your reading journey by adding your first book!
         </p>
         <Button
