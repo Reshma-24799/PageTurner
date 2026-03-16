@@ -32,13 +32,7 @@ const BookList = ({ books, onEdit, onDelete, onLogSession, onAdd, isSearching })
         <p className="text-gray-600 dark:text-gray-400 mb-6 transition-colors duration-200">
           Start your reading journey by adding your first book!
         </p>
-        <Button
-          onClick={onAdd}
-          icon={Plus}
-          variant="primary"
-        >
-          Add Book
-        </Button>
+
       </div>
     );
   }
